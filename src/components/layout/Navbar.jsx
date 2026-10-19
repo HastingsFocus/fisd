@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -8,17 +9,20 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", to: "/" },
     { name: "About", to: "/about" },
-    //{ name: "Services", to: "/#services" },
     { name: "Programs", to: "/programs" },
+    { name: "Our Approach", to: "/approach" },
+    { name: "Who We Serve", to: "/who-we-serve" },
+    { name: "Team", to: "/team" },
+    { name: "Get Involved", to: "/get-involved" },
     { name: "Contact Us", to: "/contact" },
   ];
 
   const isActive = (link) => {
-    if (link.name === "Home") return location.pathname === "/";
-    if (link.name === "About") return location.pathname === "/about";
-    if (link.name === "Programs") return location.pathname === "/programs";
-    if (link.name === "Contact Us") return location.pathname === "/contact";
-    return false;
+    return location.pathname === link.to;
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
   };
 
   const linkClass = (link) =>
@@ -36,14 +40,14 @@ const Navbar = () => {
         {/* Website branding */}
         <Link
           to="/"
-          onClick={() => setMenuOpen(false)}
+          onClick={closeMenu}
           className="shrink-0 text-2xl font-bold tracking-tight text-[#056699] sm:text-3xl"
         >
           FISDEV
         </Link>
 
         {/* Desktop navigation */}
-        <div className="hidden items-center gap-5 md:flex lg:gap-8">
+        <div className="hidden items-center gap-4 md:flex lg:gap-6 xl:gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -60,7 +64,9 @@ const Navbar = () => {
         <button
           type="button"
           className="inline-flex items-center justify-center rounded-lg p-2 text-[#056699] transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#1BB7C4] md:hidden"
-          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-label={
+            menuOpen ? "Close navigation menu" : "Open navigation menu"
+          }
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((open) => !open)}
         >
@@ -105,13 +111,14 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 to={link.to}
-                onClick={() => setMenuOpen(false)}
-                className={`rounded-lg px-4 py-3 font-medium transition-colors hover:bg-[#1BB7C4]/10 hover:text-[#056699] ${
+                onClick={closeMenu}
+                aria-current={isActive(link) ? "page" : undefined}
+                className={`rounded-lg px-4 py-3 font-medium transition-colors ${
                   link.name === "Contact Us"
-                    ? "text-[#056699]"
+                    ? "bg-[#1BB7C4] text-white hover:bg-[#159da8]"
                     : isActive(link)
                       ? "bg-[#1BB7C4]/10 text-[#056699]"
-                      : "text-gray-700"
+                      : "text-gray-700 hover:bg-[#1BB7C4]/10 hover:text-[#056699]"
                 }`}
               >
                 {link.name}

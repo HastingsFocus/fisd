@@ -29,7 +29,7 @@ const slides = [
   },
 ];
 
-function Hero() {
+const Hero = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -41,9 +41,7 @@ function Hero() {
   }, []);
 
   const previousSlide = () => {
-    setActiveIndex((current) =>
-      current === 0 ? slides.length - 1 : current - 1
-    );
+    setActiveIndex((current) => (current === 0 ? slides.length - 1 : current - 1));
   };
 
   const nextSlide = () => {
@@ -62,23 +60,23 @@ function Hero() {
         className="hero-slide-fade absolute inset-0 z-0 h-full w-full object-cover"
       />
 
-      <div className="absolute inset-0 z-[1] bg-[#034b71]/90" />
+      {/* Blue overlay */}
+      <div className="absolute inset-0 z-[1] bg-[#034b71]/80" />
 
       {/* Hero content */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-16 py-24 sm:px-8 sm:py-20 lg:px-12">
         <div key={slide.title} className="hero-slide-fade max-w-3xl text-white">
           <p className="mb-5 inline-block rounded-full border border-white/30 bg-black/20 px-4 py-2 text-sm font-semibold tracking-wide text-[#1BB7C4] backdrop-blur-sm">
             Foundation for Inclusive and Sustainable Development
           </p>
 
-          <h1 className="text-4xl leading-tight font-bold sm:text-5xl lg:text-6xl">
-            {slide.title}
-          </h1>
+          <h1 className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">{slide.title}</h1>
 
-          <p className="mt-6 max-w-2xl text-base leading-8 text-white sm:text-lg">
+          <p className="mt-6 max-w-2xl text-base leading-8 text-white/90 sm:text-lg">
             {slide.description}
           </p>
 
+          {/* Homepage actions */}
           <div className="mt-9 flex flex-col gap-4 sm:flex-row">
             <Link
               to="/about"
@@ -89,7 +87,7 @@ function Hero() {
             </Link>
 
             <Link
-              to="/contact"
+              to="/get-involved"
               className="inline-flex items-center justify-center rounded-lg border border-white/80 bg-black/10 px-7 py-3.5 font-semibold text-white transition duration-300 hover:-translate-y-1 hover:bg-white hover:text-[#034b71]"
             >
               Get Involved
@@ -98,28 +96,28 @@ function Hero() {
         </div>
       </div>
 
-      {/* Previous slide */}
+      {/* Previous slide: bottom-left on mobile, vertically centered on larger screens */}
       <button
         type="button"
         onClick={previousSlide}
         aria-label="Previous slide"
-        className="absolute top-1/2 left-3 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-black/20 text-2xl text-white transition hover:bg-[#1BB7C4] sm:left-6 sm:h-12 sm:w-12"
+        className="absolute bottom-5 left-4 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/50 bg-black/30 text-2xl text-white transition hover:bg-[#1BB7C4] sm:bottom-auto sm:left-6 sm:top-1/2 sm:h-12 sm:w-12 sm:-translate-y-1/2"
       >
         ‹
       </button>
 
-      {/* Next slide */}
+      {/* Next slide: bottom-right on mobile, vertically centered on larger screens */}
       <button
         type="button"
         onClick={nextSlide}
         aria-label="Next slide"
-        className="absolute top-1/2 right-3 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-black/20 text-2xl text-white transition hover:bg-[#1BB7C4] sm:right-6 sm:h-12 sm:w-12"
+        className="absolute bottom-5 right-4 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/50 bg-black/30 text-2xl text-white transition hover:bg-[#1BB7C4] sm:bottom-auto sm:right-6 sm:top-1/2 sm:h-12 sm:w-12 sm:-translate-y-1/2"
       >
         ›
       </button>
 
       {/* Slide indicators */}
-      <div className="absolute bottom-7 left-1/2 z-20 flex -translate-x-1/2 gap-3">
+      <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-3 sm:bottom-7">
         {slides.map((item, index) => (
           <button
             key={item.title}
@@ -128,15 +126,13 @@ function Hero() {
             aria-label={`Go to slide ${index + 1}`}
             aria-current={activeIndex === index ? "true" : undefined}
             className={`h-2.5 rounded-full transition-all duration-300 ${
-              activeIndex === index
-                ? "w-9 bg-[#1BB7C4]"
-                : "w-2.5 bg-white/70 hover:bg-white"
+              activeIndex === index ? "w-9 bg-[#1BB7C4]" : "w-2.5 bg-white/70 hover:bg-white"
             }`}
           />
         ))}
       </div>
     </section>
   );
-}
+};
 
 export default Hero;
