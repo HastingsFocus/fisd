@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import fisdevIcon from "../../assets/logos/fisd-icon.jpeg";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,9 +18,7 @@ const Navbar = () => {
     { name: "Contact Us", to: "/contact" },
   ];
 
-  const isActive = (link) => {
-    return location.pathname === link.to;
-  };
+  const isActive = (link) => location.pathname === link.to;
 
   const closeMenu = () => {
     setMenuOpen(false);
@@ -41,9 +40,14 @@ const Navbar = () => {
         <Link
           to="/"
           onClick={closeMenu}
-          className="shrink-0 text-2xl font-bold tracking-tight text-[#056699] sm:text-3xl"
+          className="flex shrink-0 items-center gap-4 text-2xl font-bold tracking-tight text-[#056699] sm:text-3xl"
         >
-          FISDEV
+          <img
+            src={fisdevIcon}
+            alt="FISDEV logo"
+            className="h-10 w-10 object-contain sm:h-12 sm:w-12"
+          />
+          <span>FISDEV</span>
         </Link>
 
         {/* Desktop navigation */}
