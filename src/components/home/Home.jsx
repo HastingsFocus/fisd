@@ -1,6 +1,6 @@
 
 import Hero from "./Hero";
-import ImpactStats from "./ImpactStats";
+
 
 import Values from "./Values";
 import Testimonials from "./Testimonials";
@@ -10,7 +10,7 @@ function Home() {
   return (
     <>
       <Hero />
-      <ImpactStats />
+      
       
       <Values />
       <Testimonials />
