@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import fisdevIcon from "../../assets/logos/fisd-icon.jpeg";
+import fisdevIcon from "../../assets/logos/fisd-icon.jpg";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -36,19 +36,25 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200/70 bg-[rgb(245,249,252)]">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        {/* Website branding */}
-        <Link
-          to="/"
-          onClick={closeMenu}
-          className="flex shrink-0 items-center gap-4 text-2xl font-bold tracking-tight text-[#056699] sm:text-3xl"
-        >
-          <img
-            src={fisdevIcon}
-            alt="FISDEV logo"
-            className="h-10 w-10 object-contain sm:h-12 sm:w-12"
-          />
-          <span>FISDEV</span>
-        </Link>
+       
+{/* Website branding */}
+<Link
+  to="/"
+  onClick={closeMenu}
+  className="flex shrink-0 items-center gap-3 text-2xl font-bold tracking-tight text-[#056699] sm:gap-4 sm:text-3xl"
+>
+  <div className="flex h-10 w-10 items-center justify-center sm:h-11 sm:w-11">
+    <img
+      src={fisdevIcon}
+      alt="FISDEV logo"
+      className="h-full w-full object-contain"
+    />
+  </div>
+
+  <span>FISDEV</span>
+</Link>
+
+
 
         {/* Desktop navigation */}
         <div className="hidden items-center gap-4 md:flex lg:gap-6 xl:gap-8">

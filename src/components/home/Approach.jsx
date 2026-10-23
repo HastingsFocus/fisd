@@ -738,22 +738,7 @@ const Approach = () => {
                 responsible production, climate action and partnerships.
               </p>
 
-              <div className="mt-4 flex flex-wrap gap-2">
-                {["SDG 1", "SDG 5", "SDG 8", "SDG 9", "SDG 10", "SDG 12", "SDG 13", "SDG 17"].map(
-                  (goal, index) => (
-                    <motion.span
-                      key={goal}
-                      initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.85 }}
-                      whileInView={shouldReduceMotion ? undefined : { opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: shouldReduceMotion ? 0 : index * 0.05 }}
-                      className="rounded-md border border-[#1BB7C4]/30 bg-white px-2.5 py-1 text-xs font-semibold text-[#056699]"
-                    >
-                      {goal}
-                    </motion.span>
-                  )
-                )}
-              </div>
+              
             </motion.article>
           </motion.div>
         </div>
