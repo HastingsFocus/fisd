@@ -100,30 +100,45 @@ const approachAreas = [
   },
 ];
 
-const principles = [
+const strategicObjectives = [
   {
-    title: "People-Centred Development",
-    icon: Users,
+    number: "01",
+    title: "Economic Empowerment & Sustainable Livelihoods",
+    icon: BriefcaseBusiness,
     description:
-      "We place young people and underserved communities at the centre of development, recognising their capabilities, priorities and potential to lead change.",
+      "To promote the economic empowerment of young people, women and other vulnerable groups through sustainable entrepreneurship, access to finance and skills development to enhance employability, create dignified and sustainable livelihood opportunities and improve the economic resilience of communities.",
+    outcomes: [
+      "Sustainable entrepreneurship and enterprise growth",
+      "Access to finance and practical skills development",
+      "Improved employability and dignified livelihoods",
+      "Stronger economic resilience in communities",
+    ],
   },
   {
-    title: "Evidence-Based Innovation",
-    icon: Lightbulb,
+    number: "02",
+    title: "Equitable Services, Innovation & Technology",
+    icon: HeartPulse,
     description:
-      "We use evidence, learning and community feedback to shape relevant interventions, test solutions and improve development outcomes.",
+      "To enhance equitable access to quality social services and promote local innovations and technology solutions integration for young people, women, children and other vulnerable groups by streamlining pathways to essential services and enabling platforms for development of sustainable livelihoods and advancing inclusive social development of communities.",
+    outcomes: [
+      "More equitable access to quality social services",
+      "Locally relevant innovation and technology solutions",
+      "Clearer pathways to essential services",
+      "Platforms that support sustainable livelihoods",
+    ],
   },
   {
-    title: "Inclusion & Equity",
-    icon: ShieldCheck,
+    number: "03",
+    title: "Inclusive Governance, Climate Action & Social Justice",
+    icon: Landmark,
     description:
-      "We work to reduce barriers to opportunity, with particular attention to young people, women, children, persons with disabilities and other underserved groups.",
-  },
-  {
-    title: "Partnership & Collaboration",
-    icon: Handshake,
-    description:
-      "We work with communities, government, development partners and the private sector to mobilise expertise, resources and opportunities for lasting impact.",
+      "To foster the development of solutions and platforms that amplify the voices, promote systematic change and enable meaningful participation of young people, women and vulnerable communities in governance, climate action and social justice to promote inclusive decision-making and sustainable community development.",
+    outcomes: [
+      "Amplified voices of young people and women",
+      "Meaningful participation in governance",
+      "Community involvement in climate action",
+      "Inclusive decision-making and social justice",
+    ],
   },
 ];
 
@@ -158,67 +173,181 @@ const developmentStages = [
   },
 ];
 
+const principles = [
+  {
+    title: "People-Centred Development",
+    icon: Users,
+    description:
+      "We place young people and underserved communities at the centre of development, recognising their capabilities, priorities and potential to lead change.",
+  },
+  {
+    title: "Evidence-Based Innovation",
+    icon: Lightbulb,
+    description:
+      "We use evidence, learning and community feedback to shape relevant interventions, test solutions and improve development outcomes.",
+  },
+  {
+    title: "Inclusion & Equity",
+    icon: ShieldCheck,
+    description:
+      "We work to reduce barriers to opportunity, with particular attention to young people, women, children, persons with disabilities and other underserved groups.",
+  },
+  {
+    title: "Partnership & Collaboration",
+    icon: Handshake,
+    description:
+      "We work with communities, government, development partners and the private sector to mobilise expertise, resources and opportunities for lasting impact.",
+  },
+];
+
 const easing = [0.22, 1, 0.36, 1];
 
 const revealUp = {
   hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: easing } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: easing },
+  },
 };
 
 const revealLeft = {
   hidden: { opacity: 0, x: -28 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: easing } },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.7, ease: easing },
+  },
 };
 
 const revealRight = {
   hidden: { opacity: 0, x: 28 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: easing } },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.7, ease: easing },
+  },
 };
 
 const staggerChildren = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.05,
+    },
+  },
 };
 
-const Approach = () => {
+function SectionHeading({ eyebrow, title, accent, description }) {
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.12 }}
+      variants={staggerChildren}
+      className="mx-auto max-w-3xl text-center"
+    >
+      <motion.p
+        variants={revealUp}
+        className="text-sm font-semibold uppercase tracking-[0.2em] text-[#159da8]"
+      >
+        {eyebrow}
+      </motion.p>
+
+      <motion.h2
+        variants={revealUp}
+        className="mt-3 text-3xl font-bold leading-tight text-[#056699] sm:text-4xl lg:text-5xl"
+      >
+        {title}{" "}
+        {accent && <span className="text-[#1BB7C4]">{accent}</span>}
+      </motion.h2>
+
+      <motion.div
+        variants={revealUp}
+        className="mx-auto mt-4 h-1 w-16 rounded-full bg-[#1BB7C4]"
+      />
+
+      <motion.p
+        variants={revealUp}
+        className="mt-5 text-base leading-8 text-gray-600 sm:text-lg"
+      >
+        {description}
+      </motion.p>
+    </motion.div>
+  );
+}
+
+function Approach() {
   const shouldReduceMotion = useReducedMotion();
 
   const revealProps = shouldReduceMotion
     ? {}
-    : { initial: "hidden", whileInView: "visible", viewport: { once: true, amount: 0.12 } };
+    : {
+        initial: "hidden",
+        whileInView: "visible",
+        viewport: { once: true, amount: 0.12 },
+      };
 
-  const heroProps = shouldReduceMotion ? {} : { initial: "hidden", animate: "visible" };
+  const heroProps = shouldReduceMotion
+    ? {}
+    : { initial: "hidden", animate: "visible" };
 
   const hoverProps = shouldReduceMotion
     ? {}
-    : { whileHover: { y: -6 }, transition: { duration: 0.25, ease: easing } };
+    : {
+        whileHover: { y: -6 },
+        transition: { duration: 0.25, ease: easing },
+      };
 
   const iconHoverProps = shouldReduceMotion
     ? {}
-    : { whileHover: { scale: 1.08, rotate: 4 }, transition: { duration: 0.25, ease: easing } };
+    : {
+        whileHover: { scale: 1.08, rotate: 4 },
+        transition: { duration: 0.25, ease: easing },
+      };
 
   return (
     <main className="min-h-screen overflow-hidden bg-[rgb(245,249,252)]">
-      {/* Hero */}
+      {/* HERO */}
       <section className="relative overflow-hidden bg-[rgb(3,75,113)] px-5 py-14 text-white sm:px-8 sm:py-16 lg:px-12 lg:py-20">
         {!shouldReduceMotion && (
           <>
             <motion.div
               aria-hidden="true"
               className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#1BB7C4]/20 blur-3xl"
-              animate={{ scale: [1, 1.12, 1], opacity: [0.5, 0.8, 0.5] }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              animate={{
+                scale: [1, 1.12, 1],
+                opacity: [0.5, 0.8, 0.5],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             />
+
             <motion.div
               aria-hidden="true"
               className="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-[#1BB7C4]/10 blur-3xl"
-              animate={{ scale: [1.08, 1, 1.08], x: [0, 12, 0] }}
-              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+              animate={{
+                scale: [1.08, 1, 1.08],
+                x: [0, 12, 0],
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             />
           </>
         )}
 
-        <motion.div {...heroProps} variants={staggerChildren} className="relative mx-auto max-w-7xl">
+        <motion.div
+          {...heroProps}
+          variants={staggerChildren}
+          className="relative mx-auto max-w-7xl"
+        >
           <motion.div
             variants={revealUp}
             className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-white/90"
@@ -234,7 +363,10 @@ const Approach = () => {
             Our Approach
           </motion.h1>
 
-          <motion.div variants={revealUp} className="mt-4 h-1 w-20 rounded-full bg-[#1BB7C4]" />
+          <motion.div
+            variants={revealUp}
+            className="mt-4 h-1 w-20 rounded-full bg-[#1BB7C4]"
+          />
 
           <motion.p
             variants={revealUp}
@@ -245,36 +377,29 @@ const Approach = () => {
             resilience, expand opportunities and build self-reliant communities.
           </motion.p>
 
-          <motion.div variants={revealUp} className="mt-7 flex flex-wrap gap-3">
-            <motion.div
-              whileHover={shouldReduceMotion ? {} : { scale: 1.03 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
+          <motion.div
+            variants={revealUp}
+            className="mt-7 flex flex-wrap gap-3"
+          >
+            <Link
+              to="/programs"
+              className="inline-flex items-center gap-2 rounded-lg bg-[#1BB7C4] px-6 py-3 font-semibold text-white transition-colors duration-300 hover:bg-[#159da8]"
             >
-              <Link
-                to="/programs"
-                className="inline-flex items-center gap-2 rounded-lg bg-[#1BB7C4] px-6 py-3 font-semibold text-white transition-colors duration-300 hover:bg-[#159da8]"
-              >
-                Explore Our Programs
-                <ArrowRight size={18} aria-hidden="true" />
-              </Link>
-            </motion.div>
+              Explore Our Programs
+              <ArrowRight size={18} aria-hidden="true" />
+            </Link>
 
-            <motion.div
-              whileHover={shouldReduceMotion ? {} : { scale: 1.03 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-6 py-3 font-semibold text-white transition-colors duration-300 hover:bg-white/10"
             >
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-6 py-3 font-semibold text-white transition-colors duration-300 hover:bg-white/10"
-              >
-                Partner With Us
-              </Link>
-            </motion.div>
+              Partner With Us
+            </Link>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* Introduction */}
+      {/* DEVELOPMENT PHILOSOPHY */}
       <section className="px-5 py-12 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
         <div className="mx-auto grid max-w-7xl items-center gap-9 lg:grid-cols-2 lg:gap-14">
           <motion.div {...revealProps} variants={revealLeft}>
@@ -306,7 +431,11 @@ const Approach = () => {
             </p>
           </motion.div>
 
-          <motion.div {...revealProps} variants={revealRight} className="relative">
+          <motion.div
+            {...revealProps}
+            variants={revealRight}
+            className="relative"
+          >
             <div className="absolute -left-2 -top-2 h-20 w-20 rounded-tl-3xl border-l-4 border-t-4 border-[#1BB7C4] sm:-left-3 sm:-top-3 sm:h-24 sm:w-24" />
 
             <motion.div
@@ -332,11 +461,16 @@ const Approach = () => {
                 <div className="grid grid-cols-2 gap-5">
                   <div>
                     <p className="text-2xl font-bold text-[#1BB7C4]">People</p>
-                    <p className="mt-1 text-sm leading-6 text-white/70">At the centre of change</p>
+                    <p className="mt-1 text-sm leading-6 text-white/70">
+                      At the centre of change
+                    </p>
                   </div>
+
                   <div>
                     <p className="text-2xl font-bold text-[#1BB7C4]">Systems</p>
-                    <p className="mt-1 text-sm leading-6 text-white/70">Enabling lasting progress</p>
+                    <p className="mt-1 text-sm leading-6 text-white/70">
+                      Enabling lasting progress
+                    </p>
                   </div>
                 </div>
               </div>
@@ -347,102 +481,228 @@ const Approach = () => {
         </div>
       </section>
 
-      {/* Graduation Approach */}
-      <section className="bg-white px-5 py-12 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
-        <div className="mx-auto max-w-7xl">
-          <motion.div {...revealProps} variants={revealUp} className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#159da8]">
-              Our Model for Change
-            </p>
+     {/* THREE STRATEGIC OBJECTIVES */}
+<section className="relative overflow-hidden bg-white px-5 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
+  {/* Decorative background accents */}
+  <div className="pointer-events-none absolute -right-24 top-10 h-64 w-64 rounded-full bg-[#1BB7C4]/10 blur-3xl" />
+  <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-[#056699]/5 blur-3xl" />
 
-            <h2 className="mt-3 text-3xl font-bold text-[#056699] sm:text-4xl">
-              The Graduation Approach
-            </h2>
+  <div className="relative mx-auto max-w-7xl">
+    <SectionHeading
+      eyebrow="Our Strategic Direction"
+      title="Our Strategic"
+      accent="Objectives"
+      description="Our strategic objectives guide our commitment to economic empowerment, inclusive social development, meaningful participation and sustainable community development."
+    />
 
-            <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-[#1BB7C4]" />
+    <motion.div
+      {...revealProps}
+      variants={staggerChildren}
+      className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-3"
+    >
+      {[
+        {
+          number: "01",
+          title: "Economic Empowerment",
+          icon: BriefcaseBusiness,
+          description:
+            "To promote the economic empowerment of young people, women and other vulnerable groups through sustainable entrepreneurship, access to finance and skills development to enhance employability, create dignified and sustainable livelihood opportunities and improve the economic resilience of communities.",
+        },
+        {
+          number: "02",
+          title: "Inclusive Social Development",
+          icon: HeartPulse,
+          description:
+            "To enhance equitable access to quality social services and promote local innovations and technology solutions integration for young people, women, children and other vulnerable groups by streamlining pathways to essential services and enabling platforms for development of sustainable livelihoods and advancing inclusive social development of communities.",
+        },
+        {
+          number: "03",
+          title: "Governance, Climate Action & Social Justice",
+          icon: Landmark,
+          description:
+            "To foster the development of solutions and platforms that amplify the voices, promote systematic change and enable meaningful participation of young people, women and vulnerable communities in governance, climate action and social justice to promote inclusive decision-making and sustainable community development.",
+        },
+      ].map((objective) => {
+        const Icon = objective.icon;
 
-            <p className="mt-5 leading-8 text-gray-600">
-              We view development as a progressive journey. Our approach seeks
-              to help individuals and communities build capabilities, access
-              opportunities and strengthen their ability to sustain progress
-              over time.
-            </p>
-          </motion.div>
-
-          <motion.div
-            {...revealProps}
-            variants={staggerChildren}
-            className="mt-9 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4"
-          >
-            {developmentStages.map((stage, index) => {
-              const Icon = stage.icon;
-
-              return (
-                <motion.article
-                  key={stage.number}
-                  variants={revealUp}
-                  {...hoverProps}
-                  className="relative rounded-2xl border border-gray-100 bg-[rgb(245,249,252)] p-6 transition-colors duration-300 hover:border-[#1BB7C4]/50 hover:shadow-lg"
-                >
-                  <div className="flex items-center justify-between">
-                    <motion.div
-                      {...iconHoverProps}
-                      className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#1BB7C4]/10 text-[#056699]"
-                    >
-                      <Icon size={25} strokeWidth={1.8} />
-                    </motion.div>
-
-                    <span className="text-2xl font-bold text-[#056699]/15">{stage.number}</span>
-                  </div>
-
-                  <h3 className="mt-4 text-xl font-bold text-[#056699]">{stage.title}</h3>
-
-                  <p className="mt-3 text-sm leading-7 text-gray-600">{stage.description}</p>
-
-                  {index < developmentStages.length - 1 && (
-                    <div className="mt-4 hidden items-center gap-2 text-sm font-semibold text-[#159da8] xl:flex">
-                      <span>Next stage</span>
-                      <ArrowRight size={16} />
-                    </div>
-                  )}
-                </motion.article>
-              );
-            })}
-          </motion.div>
-
-          <motion.p
-            {...revealProps}
+        return (
+          <motion.article
+            key={objective.number}
             variants={revealUp}
-            className="mx-auto mt-6 max-w-3xl text-center text-sm leading-7 text-gray-500"
+            {...hoverProps}
+            className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-[rgb(245,249,252)] p-6 transition-colors duration-300 hover:border-[#1BB7C4]/60 hover:shadow-xl sm:p-7"
           >
-            These stages provide a guiding framework. Interventions are adapted
-            to the needs, circumstances and opportunities of each community
-            rather than applied as a rigid sequence.
-          </motion.p>
-        </div>
-      </section>
+            {/* Top accent */}
+            <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#056699] to-[#1BB7C4]" />
 
-      {/* Ecosystem-Led Development */}
+            {/* Icon and number */}
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[#056699]/10 text-[#056699] transition-colors duration-300 group-hover:bg-[#056699] group-hover:text-white">
+                <Icon size={28} strokeWidth={1.8} />
+              </div>
+
+              <span className="text-3xl font-extrabold text-[#056699]/15">
+                {objective.number}
+              </span>
+            </div>
+
+            {/* Objective heading */}
+            <h3 className="mt-6 text-xl font-bold leading-snug text-[#056699] sm:text-2xl">
+              {objective.title}
+            </h3>
+
+            {/* Exact official objective statement */}
+            <p className="mt-4 flex-1 text-sm leading-7 text-gray-600 sm:text-base sm:leading-8">
+              {objective.description}
+            </p>
+
+            {/* Bottom accent */}
+            <div className="mt-6 h-1 w-12 rounded-full bg-[#1BB7C4] transition-all duration-300 group-hover:w-20" />
+          </motion.article>
+        );
+      })}
+    </motion.div>
+  </div>
+</section>
+
+      
+{/* GRADUATION APPROACH */}
+<section className="bg-[rgb(245,249,252)] px-5 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
+  <div className="mx-auto max-w-7xl">
+    <SectionHeading
+      eyebrow="Our Model for Change"
+      title="The Graduation"
+      accent="Approach"
+      description="We follow a five-stage, community-centred approach that supports people to identify opportunities, co-create solutions, build capabilities and achieve sustainable progress."
+    />
+
+    <motion.div
+      {...revealProps}
+      variants={staggerChildren}
+      className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+    >
+      {[
+        {
+          number: "01",
+          title: "Assess & Engage",
+          icon: Compass,
+          description:
+            "Understand community needs, existing capacities, local resources and barriers through engagement and evidence-informed assessment.",
+        },
+        {
+          number: "02",
+          title: "Co-creation & Solutions Validation",
+          icon: Handshake,
+          description:
+            "Facilitate inclusive, participatory processes that empower affected communities and target participants to co-design locally relevant solutions and validate proposed interventions against their needs and priorities.",
+        },
+        {
+          number: "03",
+          title: "Build Capabilities",
+          icon: GraduationCap,
+          description:
+            "Strengthen practical skills, knowledge, confidence and access to the resources people need to pursue sustainable opportunities.",
+        },
+        {
+          number: "04",
+          title: "Connect & Grow",
+          icon: TrendingUp,
+          description:
+            "Link participants to markets, finance, services, technology, mentors and strategic partners that support their progress.",
+        },
+        {
+          number: "05",
+          title: "Sustain & Thrive",
+          icon: Sprout,
+          description:
+            "Promote resilience, self-reliance and lasting community ownership so that progress can continue beyond individual project cycles.",
+        },
+      ].map((stage, index, stages) => {
+        const Icon = stage.icon;
+
+        return (
+          <motion.article
+            key={stage.number}
+            variants={revealUp}
+            {...hoverProps}
+            className="group relative flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#1BB7C4]/60 hover:shadow-xl"
+          >
+            {/* Stage number and icon */}
+            <div className="flex items-center justify-between gap-3">
+              <motion.div
+                {...iconHoverProps}
+                className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#1BB7C4]/10 text-[#056699] transition-colors duration-300 group-hover:bg-[#056699] group-hover:text-white"
+              >
+                <Icon size={25} strokeWidth={1.8} />
+              </motion.div>
+
+              <span className="text-3xl font-extrabold text-[#056699]/15">
+                {stage.number}
+              </span>
+            </div>
+
+            {/* Stage title */}
+            <h3 className="mt-5 text-lg font-bold leading-snug text-[#056699] sm:text-xl">
+              {stage.title}
+            </h3>
+
+            {/* Official description */}
+            <p className="mt-3 flex-1 text-sm leading-7 text-gray-600">
+              {stage.description}
+            </p>
+
+            {/* Progress indicator */}
+            <div className="mt-6 flex items-center gap-2 border-t border-slate-100 pt-4">
+              <div className="flex gap-1">
+                {stages.map((item) => (
+                  <span
+                    key={item.number}
+                    className={`h-1.5 w-4 rounded-full ${
+                      item.number === stage.number
+                        ? "bg-[#056699]"
+                        : "bg-[#1BB7C4]/20"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <span className="ml-auto text-xs font-semibold text-[#056699]">
+                Stage {index + 1} of {stages.length}
+              </span>
+            </div>
+
+            {/* Connector */}
+            {index < stages.length - 1 && (
+              <div className="absolute -right-3 top-12 z-10 hidden h-7 w-7 items-center justify-center rounded-full border border-slate-200 bg-white text-[#159da8] shadow-sm xl:flex">
+                <ArrowRight size={15} />
+              </div>
+            )}
+          </motion.article>
+        );
+      })}
+    </motion.div>
+
+    {/* Closing note */}
+    <motion.p
+      {...revealProps}
+      variants={revealUp}
+      className="mx-auto mt-8 max-w-3xl text-center text-sm leading-7 text-gray-500"
+    >
+      These five stages provide a guiding framework. Interventions are adapted
+      to the needs, circumstances and opportunities of each community rather
+      than applied as a rigid sequence.
+    </motion.p>
+  </div>
+</section>
+
+      {/* ECOSYSTEM-LED DEVELOPMENT */}
       <section className="px-5 py-12 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
         <div className="mx-auto max-w-7xl">
-          <motion.div {...revealProps} variants={revealUp} className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#159da8]">
-              Connected Solutions
-            </p>
-
-            <h2 className="mt-3 text-3xl font-bold text-[#056699] sm:text-4xl">
-              An Ecosystem-Led Approach
-            </h2>
-
-            <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-[#1BB7C4]" />
-
-            <p className="mt-5 leading-8 text-gray-600">
-              We recognise that sustainable outcomes depend on the wider
-              environment in which people live, learn, work and do business. We
-              therefore connect communities with institutions, services,
-              markets and partners that can support lasting change.
-            </p>
-          </motion.div>
+          <SectionHeading
+            eyebrow="Connected Solutions"
+            title="An Ecosystem-Led Approach"
+            description="We recognise that sustainable outcomes depend on the wider environment in which people live, learn, work and do business. We therefore connect communities with institutions, services, markets and partners that can support lasting change."
+          />
 
           <motion.div
             {...revealProps}
@@ -485,9 +745,13 @@ const Approach = () => {
                     <Icon size={29} />
                   </motion.div>
 
-                  <h3 className="mt-4 text-xl font-bold text-[#056699]">{item.title}</h3>
+                  <h3 className="mt-4 text-xl font-bold text-[#056699]">
+                    {item.title}
+                  </h3>
 
-                  <p className="mt-3 leading-7 text-gray-600">{item.description}</p>
+                  <p className="mt-3 leading-7 text-gray-600">
+                    {item.description}
+                  </p>
                 </motion.article>
               );
             })}
@@ -495,27 +759,14 @@ const Approach = () => {
         </div>
       </section>
 
-      {/* Six Integrated Areas */}
+      {/* SIX AREAS OF WORK */}
       <section className="bg-white px-5 py-12 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
         <div className="mx-auto max-w-7xl">
-          <motion.div {...revealProps} variants={revealUp} className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#159da8]">
-              Integrated Interventions
-            </p>
-
-            <h2 className="mt-3 text-3xl font-bold text-[#056699] sm:text-4xl">
-              Six Areas, One Shared Vision
-            </h2>
-
-            <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-[#1BB7C4]" />
-
-            <p className="mt-5 leading-8 text-gray-600">
-              We translate our development approach into six interconnected
-              areas of work, bringing together economic empowerment,
-              technology, learning, environmental sustainability, culture and
-              well-being.
-            </p>
-          </motion.div>
+          <SectionHeading
+            eyebrow="Integrated Interventions"
+            title="Six Areas, One Shared Vision"
+            description="We translate our development approach into six interconnected areas of work, bringing together economic empowerment, technology, learning, environmental sustainability, culture and well-being."
+          />
 
           <motion.div
             {...revealProps}
@@ -535,7 +786,9 @@ const Approach = () => {
                   <motion.div
                     className="h-1.5 w-full origin-left bg-gradient-to-r from-[#056699] to-[#1BB7C4]"
                     initial={shouldReduceMotion ? false : { scaleX: 0.35 }}
-                    whileInView={shouldReduceMotion ? undefined : { scaleX: 1 }}
+                    whileInView={
+                      shouldReduceMotion ? undefined : { scaleX: 1 }
+                    }
                     viewport={{ once: true }}
                     transition={{ duration: 0.7, ease: easing }}
                   />
@@ -549,7 +802,9 @@ const Approach = () => {
                         <Icon size={29} strokeWidth={1.7} />
                       </motion.div>
 
-                      <span className="text-3xl font-bold text-[#056699]/10">{area.number}</span>
+                      <span className="text-3xl font-bold text-[#056699]/10">
+                        {area.number}
+                      </span>
                     </div>
 
                     <h3 className="mt-5 text-xl font-bold leading-snug text-[#056699] sm:text-2xl">
@@ -569,12 +824,22 @@ const Approach = () => {
                         {area.focus.map((item, index) => (
                           <motion.li
                             key={item}
-                            initial={shouldReduceMotion ? false : { opacity: 0, x: -8 }}
-                            whileInView={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
+                            initial={
+                              shouldReduceMotion
+                                ? false
+                                : { opacity: 0, x: -8 }
+                            }
+                            whileInView={
+                              shouldReduceMotion
+                                ? undefined
+                                : { opacity: 1, x: 0 }
+                            }
                             viewport={{ once: true }}
                             transition={{
                               duration: 0.35,
-                              delay: shouldReduceMotion ? 0 : index * 0.07,
+                              delay: shouldReduceMotion
+                                ? 0
+                                : index * 0.07,
                               ease: easing,
                             }}
                             className="flex items-start gap-3 text-sm leading-6 text-gray-600"
@@ -597,26 +862,14 @@ const Approach = () => {
         </div>
       </section>
 
-      {/* Guiding Principles */}
+      {/* GUIDING PRINCIPLES */}
       <section className="px-5 py-12 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
         <div className="mx-auto max-w-7xl">
-          <motion.div {...revealProps} variants={revealUp} className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#159da8]">
-              What Guides Our Work
-            </p>
-
-            <h2 className="mt-3 text-3xl font-bold text-[#056699] sm:text-4xl">
-              Principles Behind Our Approach
-            </h2>
-
-            <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-[#1BB7C4]" />
-
-            <p className="mt-5 leading-8 text-gray-600">
-              Our work is grounded in values that promote responsible
-              leadership, meaningful participation and sustainable development
-              outcomes.
-            </p>
-          </motion.div>
+          <SectionHeading
+            eyebrow="What Guides Our Work"
+            title="Principles Behind Our Approach"
+            description="Our work is grounded in values that promote responsible leadership, meaningful participation and sustainable development outcomes."
+          />
 
           <motion.div
             {...revealProps}
@@ -656,26 +909,14 @@ const Approach = () => {
         </div>
       </section>
 
-      {/* Strategic Alignment */}
+      {/* STRATEGIC ALIGNMENT */}
       <section className="bg-white px-5 py-12 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
         <div className="mx-auto max-w-7xl">
-          <motion.div {...revealProps} variants={revealUp} className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#159da8]">
-              Our Strategic Alignment
-            </p>
-
-            <h2 className="mt-3 text-3xl font-bold text-[#056699] sm:text-4xl">
-              From Malawi to Africa and the World
-            </h2>
-
-            <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-[#1BB7C4]" />
-
-            <p className="mt-5 leading-8 text-gray-600">
-              FISDEV aligns its interventions with development priorities at
-              national, continental and global levels, contributing to a shared
-              vision of inclusive prosperity, equity and sustainability.
-            </p>
-          </motion.div>
+          <SectionHeading
+            eyebrow="Our Strategic Alignment"
+            title="From Malawi to Africa and the World"
+            description="FISDEV aligns its interventions with development priorities at national, continental and global levels, contributing to a shared vision of inclusive prosperity, equity and sustainability."
+          />
 
           <motion.div
             {...revealProps}
@@ -691,7 +932,9 @@ const Approach = () => {
                 National
               </span>
 
-              <h3 className="mt-4 text-xl font-bold text-[#056699]">Malawi 2063</h3>
+              <h3 className="mt-4 text-xl font-bold text-[#056699]">
+                Malawi 2063
+              </h3>
 
               <p className="mt-3 text-sm leading-7 text-gray-600">
                 We support Malawi's vision of an inclusively wealthy and
@@ -730,21 +973,21 @@ const Approach = () => {
                 Global
               </span>
 
-              <h3 className="mt-4 text-xl font-bold text-[#056699]">Sustainable Development Goals</h3>
+              <h3 className="mt-4 text-xl font-bold text-[#056699]">
+                Sustainable Development Goals
+              </h3>
 
               <p className="mt-3 text-sm leading-7 text-gray-600">
                 We contribute to global priorities on poverty reduction, gender
                 equality, decent work, innovation, reduced inequalities,
                 responsible production, climate action and partnerships.
               </p>
-
-              
             </motion.article>
           </motion.div>
         </div>
       </section>
 
-      {/* Closing CTA */}
+      {/* CLOSING CALL TO ACTION */}
       <section className="px-5 pb-14 pt-12 sm:px-8 sm:pb-16 lg:px-12">
         <motion.div
           {...revealProps}
@@ -755,8 +998,15 @@ const Approach = () => {
             <motion.div
               aria-hidden="true"
               className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-[#1BB7C4]/15 blur-3xl"
-              animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.85, 0.5] }}
-              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.5, 0.85, 0.5],
+              }}
+              transition={{
+                duration: 7,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             />
           )}
 
@@ -779,41 +1029,26 @@ const Approach = () => {
             </div>
 
             <div className="flex shrink-0 flex-wrap gap-3">
-              <motion.div
-                whileHover={shouldReduceMotion ? {} : { scale: 1.04 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 rounded-lg bg-[#1BB7C4] px-5 py-3 font-semibold text-white transition-colors duration-300 hover:bg-[#159da8]"
               >
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 rounded-lg bg-[#1BB7C4] px-5 py-3 font-semibold text-white transition-colors duration-300 hover:bg-[#159da8]"
-                >
-                  Partner With Us
-                  <motion.span
-                    animate={shouldReduceMotion ? {} : { x: [0, 4, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                  >
-                    <ArrowRight size={18} aria-hidden="true" />
-                  </motion.span>
-                </Link>
-              </motion.div>
+                Partner With Us
+                <ArrowRight size={18} aria-hidden="true" />
+              </Link>
 
-              <motion.div
-                whileHover={shouldReduceMotion ? {} : { scale: 1.04 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
+              <Link
+                to="/programs"
+                className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-5 py-3 font-semibold text-white transition-colors duration-300 hover:bg-white/10"
               >
-                <Link
-                  to="/programs"
-                  className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-5 py-3 font-semibold text-white transition-colors duration-300 hover:bg-white/10"
-                >
-                  Our Programs
-                </Link>
-              </motion.div>
+                Our Programs
+              </Link>
             </div>
           </div>
         </motion.div>
       </section>
     </main>
   );
-};
+}
 
 export default Approach;

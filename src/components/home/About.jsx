@@ -173,22 +173,10 @@ const About = () => {
                 className="mt-4 h-1 rounded-full bg-[#1BB7C4]"
               />
 
-              <p className="mt-6 leading-8 text-gray-600">
-                The Foundation for Inclusive and Sustainable Development
-                (FISDEV) is a Malawian youth-led social enterprise registered
-                under the company's incorporation Act. We are dedicated to
-                challenging the social status quo, breaking vicious cycles of
-                poverty, and building sustainable pathways for youth and other
-                underserved communities in both urban and rural areas to
-                achieve economic independence and successfully transition out
-                of poverty.
-              </p>
+              
 
               <p className="mt-5 leading-8 text-gray-600">
-                FISDEV integrates youth- and community-centric sustainable
-                solutions to accelerate inclusive, equitable development across
-                Malawi. Our work blends economic empowerment, social service
-                access, and advocacy for vulnerable groups.
+                FISDEV transforms lives and strengthens communities through inclusive, innovative and sustainable solutions that empower young people, women, children, persons with disabilities and other marginalised groups to access opportunities, build resilience and achieve lasting social and economic development.
               </p>
             </motion.div>
 

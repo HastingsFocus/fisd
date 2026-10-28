@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import fisdevIcon from "../../assets/logos/fisd-icon.jpg";
@@ -11,21 +10,35 @@ const Navbar = () => {
     { name: "Home", to: "/" },
     { name: "About", to: "/about" },
     { name: "Programs", to: "/programs" },
+    { name: "Projects", to: "/projects" },
     { name: "Our Approach", to: "/approach" },
-    { name: "Who We Serve", to: "/who-we-serve" },
     { name: "Team", to: "/team" },
+    { name: "Latest", to: "/latest" },
     { name: "Get Involved", to: "/get-involved" },
     { name: "Contact Us", to: "/contact" },
   ];
 
-  const isActive = (link) => location.pathname === link.to;
+  const isActive = (link) => {
+    if (link.to === "/") {
+      return location.pathname === "/";
+    }
+
+    if (link.to === "/latest") {
+      return (
+        location.pathname === "/latest" ||
+        location.pathname.startsWith("/latest/")
+      );
+    }
+
+    return location.pathname === link.to;
+  };
 
   const closeMenu = () => {
     setMenuOpen(false);
   };
 
   const linkClass = (link) =>
-    `text-sm font-medium transition-colors duration-200 lg:text-base ${
+    `whitespace-nowrap text-sm font-medium transition-colors duration-200 lg:text-base ${
       link.name === "Contact Us"
         ? "rounded-lg bg-[#1BB7C4] px-4 py-2.5 text-white hover:bg-[#159da8]"
         : isActive(link)
@@ -35,33 +48,31 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-200/70 bg-[rgb(245,249,252)]">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-       
-{/* Website branding */}
-<Link
-  to="/"
-  onClick={closeMenu}
-  className="flex shrink-0 items-center gap-3 text-2xl font-bold tracking-tight text-[#056699] sm:gap-4 sm:text-3xl"
->
-  <div className="flex h-10 w-10 items-center justify-center sm:h-11 sm:w-11">
-    <img
-      src={fisdevIcon}
-      alt="FISDEV logo"
-      className="h-full w-full object-contain"
-    />
-  </div>
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-2 py-4 sm:px-4 lg:px-6">
+        {/* Website branding */}
+        <Link
+          to="/"
+          onClick={closeMenu}
+          className="flex shrink-0 items-center gap-3 text-2xl font-bold tracking-tight text-[#056699] sm:gap-4 sm:text-3xl"
+        >
+          <div className="flex h-10 w-10 items-center justify-center sm:h-11 sm:w-11">
+            <img
+              src={fisdevIcon}
+              alt="FISDEV logo"
+              className="h-full w-full object-contain"
+            />
+          </div>
 
-  <span>FISDEV</span>
-</Link>
-
-
+          <span>FISDEV</span>
+        </Link>
 
         {/* Desktop navigation */}
-        <div className="hidden items-center gap-4 md:flex lg:gap-6 xl:gap-8">
+        <div className="hidden items-center gap-3 md:flex lg:gap-4 xl:gap-5">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               to={link.to}
+              onClick={closeMenu}
               className={linkClass(link)}
               aria-current={isActive(link) ? "page" : undefined}
             >

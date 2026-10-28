@@ -1,92 +1,176 @@
+
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  ShieldCheck,
+  Lightbulb,
+  UsersRound,
+  Handshake,
+  Scale,
+  ClipboardCheck,
+} from "lucide-react";
+
 const values = [
   {
-    number: "01",
     title: "Resilience",
     description:
-      "Building capacity to withstand shocks, promoting sustainable livelihoods and diversified income beyond project cycles.",
-    examples: [
-      "Climate-smart agriculture",
-      "Enterprise resilience training",
-    ],
+      "Remain adaptable, determined, and committed in the face of challenges and change while building communities' capacity to withstand shocks and uncertainties.",
+    icon: ShieldCheck,
   },
   {
-    number: "02",
     title: "Innovation",
     description:
-      "Creative, evidence-based solutions that improve efficiency and impact while responding to evolving needs.",
-    examples: ["Digital tools for farmers", "Solar innovation hubs"],
+      "Embrace creativity, new ideas and adaptive approaches to address challenges and create sustainable solutions.",
+    icon: Lightbulb,
   },
   {
-    number: "03",
     title: "Inclusion",
     description:
-      "Equitable access for all, especially youth, women, and underserved populations through gender-responsive programs.",
-    examples: ["Women-led enterprises", "Youth leadership councils"],
+      "Foster equitable access for all, especially youth, women, and underserved populations through gender-responsive programs.",
+    icon: UsersRound,
   },
   {
-    number: "04",
-    title: "Partnerships",
+    title: "Partnership",
     description:
-      "Collaboration with communities, donors, government, and the private sector for greater scale and sustainability.",
-    examples: ["Strategic alliances", "Multi-sector collaboration"],
+      "Collaborate with communities, donors, government and private sector players to scale and sustain our work.",
+    icon: Handshake,
+  },
+  {
+    title: "Integrity",
+    description:
+      "Uphold honesty, ethical conduct and strong moral principles in everything we do.",
+    icon: Scale,
+  },
+  {
+    title: "Accountability",
+    description:
+      "Take responsibility for our decisions, actions and results.",
+    icon: ClipboardCheck,
   },
 ];
 
-const Values = () => {
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 25,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.55,
+      ease: "easeOut",
+    },
+  },
+};
+
+function Values() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <section className="bg-[rgb(245,249,252)] px-5 py-16 sm:px-8 sm:py-20 lg:px-12">
-      <div className="mx-auto max-w-7xl">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-[#1BB7C4]">
-            What Guides Us
-          </p>
-          <h2 className="mt-3 text-3xl font-bold text-[#056699] sm:text-4xl">
-            Our Core Values
-          </h2>
-          <p className="mt-4 leading-7 text-gray-600">
-            We put people, sustainable solutions, innovation, and collaboration
-            at the centre of our work.
-          </p>
-        </div>
+    <section
+      id="core-values"
+      className="relative overflow-hidden bg-white px-5 py-16 sm:px-8 sm:py-20 lg:py-24"
+    >
+      {/* Decorative background accents */}
+      <div className="pointer-events-none absolute -left-24 top-20 h-64 w-64 rounded-full bg-[#1BB7C4]/5 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-20 -right-20 h-64 w-64 rounded-full bg-[#056699]/5 blur-3xl" />
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-          {values.map((value) => (
-            <article
-              key={value.title}
-              className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-7"
-            >
-              <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#1BB7C4]/15 font-bold text-[#056699]">
-                {value.number}
-              </span>
+      <div className="relative mx-auto max-w-7xl">
+        {/* Section heading */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={containerVariants}
+          className="mx-auto mb-12 max-w-3xl text-center sm:mb-16"
+        >
+          <motion.div
+            variants={cardVariants}
+            className="mb-4 flex items-center justify-center gap-3"
+          >
+            <span className="h-1 w-10 rounded-full bg-[#1BB7C4]" />
 
-              <h3 className="mt-5 text-xl font-bold text-[#056699]">
-                {value.title}
-              </h3>
+            <span className="text-sm font-bold uppercase tracking-[0.18em] text-[#056699]">
+              What Guides Us
+            </span>
 
-              <p className="mt-3 text-sm leading-7 text-gray-600 sm:text-base">
-                {value.description}
-              </p>
+            <span className="h-1 w-10 rounded-full bg-[#1BB7C4]" />
+          </motion.div>
 
-              <ul className="mt-5 space-y-3">
-                {value.examples.map((example) => (
-                  <li
-                    key={example}
-                    className="flex items-start gap-2 text-sm text-gray-700"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#1BB7C4]"
-                    />
-                    <span>{example}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
+          <motion.h2
+            variants={cardVariants}
+            className="text-3xl font-extrabold tracking-tight text-[#056699] sm:text-4xl lg:text-5xl"
+          >
+            Our Core{" "}
+            <span className="text-[#1BB7C4]">Values</span>
+          </motion.h2>
+
+          <motion.p
+            variants={cardVariants}
+            className="mt-5 text-base leading-8 text-slate-600 sm:text-lg"
+          >
+            Our values shape how we work, how we partner with communities,
+            and how we create lasting, inclusive and sustainable change.
+          </motion.p>
+        </motion.div>
+
+        {/* Core value cards */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.12 }}
+          variants={containerVariants}
+          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {values.map((value, index) => {
+            const Icon = value.icon;
+
+            return (
+              <motion.article
+                key={value.title}
+                variants={cardVariants}
+                whileHover={shouldReduceMotion ? {} : { y: -6 }}
+                className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-[rgb(245,249,252)] p-6 transition-shadow duration-300 hover:border-[#1BB7C4]/50 hover:shadow-xl hover:shadow-[#056699]/5 sm:p-8"
+              >
+                {/* Accent line */}
+                <div className="absolute left-0 top-0 h-1 w-0 bg-[#1BB7C4] transition-all duration-300 group-hover:w-full" />
+
+                {/* Icon */}
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-[#056699]/10 text-[#056699] transition-colors duration-300 group-hover:bg-[#056699] group-hover:text-white">
+                  <Icon size={28} strokeWidth={1.8} />
+                </div>
+
+                {/* Number and title */}
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="text-sm font-bold tracking-widest text-[#1BB7C4]">
+                    0{index + 1}
+                  </span>
+
+                  <h3 className="text-xl font-bold text-[#056699] sm:text-2xl">
+                    {value.title}
+                  </h3>
+                </div>
+
+                {/* Description */}
+                <p className="text-sm leading-7 text-slate-600 sm:text-base sm:leading-8">
+                  {value.description}
+                </p>
+              </motion.article>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );
-};
+}
 
 export default Values;
