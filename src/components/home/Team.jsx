@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import { Users, BriefcaseBusiness, Landmark, ArrowRight, Network, Target, CheckCircle2 } from "lucide-react";
+import {
+  Users,
+  BriefcaseBusiness,
+  Landmark,
+  ArrowRight,
+  Target,
+} from "lucide-react";
 
 import tommyBanks from "../../assets/images/tommyBanks.jpeg";
 import ethielSiliya from "../../assets/images/ethielSiliya.jpeg";
@@ -334,60 +340,7 @@ const Team = () => {
         </div>
       </section>
 
-      {/* Wider Organisational Structure */}
-      <section className="px-6 py-14 md:py-16">
-        <div className="mx-auto max-w-7xl">
-          <motion.div {...revealProps()} className="mx-auto mb-10 max-w-3xl text-center md:mb-12">
-            <motion.div
-              whileHover={shouldReduceMotion ? undefined : { rotate: 5, scale: 1.06 }}
-              transition={{ duration: 0.25 }}
-              className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-[#056699] shadow-sm"
-            >
-              <Network size={30} />
-            </motion.div>
-
-            <p className="mb-3 font-bold uppercase tracking-[0.2em] text-[#1BB7C4]">
-              Organisational Structure
-            </p>
-
-            <h2 className="text-3xl font-extrabold text-[#056699] md:text-4xl">
-              A Team Working Towards Shared Goals
-            </h2>
-
-            <p className="mt-5 leading-8 text-gray-600">
-              FISDEV's structure brings together program delivery, research,
-              learning, finance, communications, technology, and organisational
-              support functions.
-            </p>
-          </motion.div>
-
-          <motion.div
-            variants={staggerContainer}
-            initial={shouldReduceMotion ? false : "hidden"}
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.08 }}
-            className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-          >
-            {managementStructure.map((role) => (
-              <motion.div
-                key={role}
-                variants={revealUp}
-                whileHover={shouldReduceMotion ? undefined : { x: 4, y: -2 }}
-                className="group flex items-start gap-3 rounded-xl border border-sky-100 bg-white p-5 transition-all duration-300 hover:border-[#1BB7C4]/60 hover:shadow-md"
-              >
-                <CheckCircle2
-                  size={20}
-                  className="mt-0.5 shrink-0 text-[#1BB7C4] transition-transform duration-300 group-hover:scale-110"
-                />
-
-                <span className="font-medium leading-6 text-gray-700 transition-colors duration-300 group-hover:text-[#056699]">
-                  {role}
-                </span>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      
 
       {/* Call to Action */}
       <section className="px-6 pb-16 pt-8 md:pb-20">
