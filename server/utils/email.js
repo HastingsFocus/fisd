@@ -1,42 +1,41 @@
 
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 const sendEmail = async ({ to, subject, text, html }) => {
-  const {
-    SMTP_HOST,
-    SMTP_PORT,
-    SMTP_USER,
-    SMTP_PASSWORD,
-    EMAIL_FROM,
-  } = process.env;
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.EMAIL_FROM;
 
-  if (
-    !SMTP_HOST ||
-    !SMTP_PORT ||
-    !SMTP_USER ||
-    !SMTP_PASSWORD ||
-    !EMAIL_FROM
-  ) {
-    throw new Error("Email SMTP settings are incomplete.");
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY is not configured.");
   }
 
-  const transporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: Number(SMTP_PORT),
-    secure: Number(SMTP_PORT) === 465,
-    auth: {
-      user: SMTP_USER,
-      pass: SMTP_PASSWORD,
-    },
-  });
+  if (!from) {
+    throw new Error("EMAIL_FROM is not configured.");
+  }
 
-  await transporter.sendMail({
-    from: EMAIL_FROM,
-    to,
-    subject,
-    text,
-    html,
-  });
+  const resend = new Resend(apiKey);
+
+  try {
+    const { data, error } = await resend.emails.send({
+      from,
+      to: [to],
+      subject,
+      text,
+      html,
+    });
+
+    if (error) {
+      console.error("Resend API error:", error);
+      throw new Error(error.message || "Unable to send email.");
+    }
+
+    console.log("Email accepted by Resend:", data.id);
+
+    return data;
+  } catch (error) {
+    console.error("Email sending failed:", error.message);
+    throw error;
+  }
 };
 
 export default sendEmail;
