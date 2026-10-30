@@ -7,7 +7,6 @@ import {
 } from "react";
 
 import {
-  registerUser as registerRequest,
   loginUser as loginRequest,
   getCurrentUser,
 } from "../services/authService";
@@ -32,6 +31,7 @@ export const AuthProvider = ({ children }) => {
         const response = await getCurrentUser();
 
         setUser(response.user);
+
         localStorage.setItem(
           "fisdev_cms_user",
           JSON.stringify(response.user)
@@ -48,16 +48,12 @@ export const AuthProvider = ({ children }) => {
     restoreSession();
   }, []);
 
-  // Register.
-  const register = async (userData) => {
-    return await registerRequest(userData);
-  };
-
   // Login.
   const login = async (credentials) => {
     const response = await loginRequest(credentials);
 
     localStorage.setItem("fisdev_cms_token", response.token);
+
     localStorage.setItem(
       "fisdev_cms_user",
       JSON.stringify(response.user)
@@ -72,6 +68,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("fisdev_cms_token");
     localStorage.removeItem("fisdev_cms_user");
+
     setUser(null);
   };
 
@@ -79,7 +76,6 @@ export const AuthProvider = ({ children }) => {
     user,
     loading,
     isAuthenticated: Boolean(user),
-    register,
     login,
     logout,
   };

@@ -8,21 +8,25 @@ import User from "../models/User.js";
 const seedAdmin = async () => {
   const { ADMIN_NAME, ADMIN_EMAIL, ADMIN_PASSWORD } = process.env;
 
+  // Check required environment variables.
   if (!ADMIN_NAME || !ADMIN_EMAIL || !ADMIN_PASSWORD) {
     throw new Error(
       "Set ADMIN_NAME, ADMIN_EMAIL and ADMIN_PASSWORD in your .env file first."
     );
   }
 
-  if (ADMIN_PASSWORD.length < 6) {
+  // Match the User schema password requirement.
+  if (ADMIN_PASSWORD.length < 8) {
     throw new Error(
-      "ADMIN_PASSWORD must contain at least 6 characters."
+      "ADMIN_PASSWORD must contain at least 8 characters."
     );
   }
 
   await connectDB();
 
-  // Never create a second initial administrator accidentally.
+  const email = ADMIN_EMAIL.trim().toLowerCase();
+
+  // Never accidentally create another administrator.
   const existingAdmin = await User.findOne({ role: "admin" });
 
   if (existingAdmin) {
@@ -32,8 +36,7 @@ const seedAdmin = async () => {
     return;
   }
 
-  const email = ADMIN_EMAIL.trim().toLowerCase();
-
+  // Prevent duplicate email addresses.
   const existingEmail = await User.findOne({ email });
 
   if (existingEmail) {
@@ -42,6 +45,7 @@ const seedAdmin = async () => {
     );
   }
 
+  // Create the initial administrator.
   const admin = await User.create({
     name: ADMIN_NAME.trim(),
     email,
@@ -51,7 +55,14 @@ const seedAdmin = async () => {
     isActive: true,
   });
 
-  console.log(`Initial administrator created: ${admin.email}`);
+  console.log("--------------------------------------");
+  console.log("INITIAL ADMINISTRATOR CREATED");
+  console.log("--------------------------------------");
+  console.log(`Name: ${admin.name}`);
+  console.log(`Email: ${admin.email}`);
+  console.log(`Role: ${admin.role}`);
+  console.log(`Active: ${admin.isActive}`);
+  console.log("--------------------------------------");
 };
 
 try {

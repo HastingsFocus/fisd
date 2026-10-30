@@ -6,11 +6,13 @@ import {
   LogOut,
   X,
   ShieldCheck,
+  Users,
 } from "lucide-react";
+
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
-const navigation = [
+const baseNavigation = [
   {
     name: "Dashboard",
     path: "/cms/dashboard",
@@ -32,6 +34,18 @@ const Sidebar = ({ isOpen, onClose }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
+  const navigation =
+    user?.role === "admin"
+      ? [
+          ...baseNavigation,
+          {
+            name: "User Management",
+            path: "/cms/users",
+            icon: Users,
+          },
+        ]
+      : baseNavigation;
+
   const handleLogout = () => {
     logout();
     navigate("/cms/login", { replace: true });
@@ -39,7 +53,6 @@ const Sidebar = ({ isOpen, onClose }) => {
 
   return (
     <>
-      {/* Mobile overlay */}
       {isOpen && (
         <button
           type="button"
@@ -69,6 +82,7 @@ const Sidebar = ({ isOpen, onClose }) => {
               <h1 className="text-lg font-extrabold tracking-tight text-[#056699]">
                 FISDEV
               </h1>
+
               <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gray-400">
                 Content Management
               </p>
@@ -127,6 +141,7 @@ const Sidebar = ({ isOpen, onClose }) => {
               <p className="truncate text-sm font-bold text-gray-800">
                 {user?.name || "CMS User"}
               </p>
+
               <p className="truncate text-xs capitalize text-gray-500">
                 {user?.role || "Staff"}
               </p>

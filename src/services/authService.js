@@ -1,21 +1,19 @@
 
 import api from "./api";
 
-// Register a new staff member.
-export const registerUser = async (userData) => {
-  const response = await api.post("/auth/register", userData);
-  return response.data;
-};
-
-// Verify staff email.
-export const verifyEmail = async (token) => {
-  const response = await api.post("/auth/verify-email", { token });
-  return response.data;
-};
-
 // Login.
 export const loginUser = async (credentials) => {
   const response = await api.post("/auth/login", credentials);
+  return response.data;
+};
+
+// Accept an administrator's invitation and create a password.
+export const acceptInvitation = async (invitationData) => {
+  const response = await api.post(
+    "/auth/accept-invitation",
+    invitationData
+  );
+
   return response.data;
 };
 

@@ -1,4 +1,3 @@
-
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
@@ -10,7 +9,6 @@ export const protect = async (req, res, next) => {
   try {
     const authorization = req.headers.authorization;
 
-    // Check whether the request contains a Bearer token.
     if (!authorization?.startsWith("Bearer ")) {
       return res.status(401).json({
         success: false,
@@ -20,16 +18,23 @@ export const protect = async (req, res, next) => {
 
     const token = authorization.split(" ")[1];
 
-    // Verify JWT token.
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Find the authenticated user.
     const user = await User.findById(decoded.id);
 
+    // Check whether the account exists and is active.
     if (!user || !user.isActive) {
       return res.status(401).json({
         success: false,
         message: "This account is unavailable.",
+      });
+    }
+
+    // Only verified accounts can access the CMS.
+    if (!user.emailVerified) {
+      return res.status(403).json({
+        success: false,
+        message: "Please verify your email address.",
       });
     }
 
@@ -45,7 +50,6 @@ export const protect = async (req, res, next) => {
       });
     }
 
-    // Attach authenticated user to the request.
     req.user = user;
 
     next();
@@ -63,7 +67,6 @@ export const protect = async (req, res, next) => {
 
 export const authorize = (...allowedRoles) => {
   return (req, res, next) => {
-    // Ensure the user is authenticated.
     if (!req.user) {
       return res.status(401).json({
         success: false,
@@ -71,7 +74,6 @@ export const authorize = (...allowedRoles) => {
       });
     }
 
-    // Check whether the user's role is permitted.
     if (!allowedRoles.includes(req.user.role)) {
       return res.status(403).json({
         success: false,

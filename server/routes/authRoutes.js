@@ -1,10 +1,8 @@
-
 import express from "express";
 import rateLimit from "express-rate-limit";
 
 import {
-  register,
-  verifyEmail,
+  acceptInvitation,
   login,
   forgotPassword,
   resetPassword,
@@ -25,11 +23,11 @@ const authLimiter = rateLimit({
   },
 });
 
-router.post("/register", authLimiter, register);
-router.post("/verify-email", authLimiter, verifyEmail);
+router.post("/accept-invitation", authLimiter, acceptInvitation);
 router.post("/login", authLimiter, login);
 router.post("/forgot-password", authLimiter, forgotPassword);
 router.post("/reset-password", authLimiter, resetPassword);
+
 router.get("/me", protect, getMe);
 
 export default router;

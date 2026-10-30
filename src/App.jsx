@@ -1,6 +1,8 @@
 
 import { Routes, Route, Navigate, Link, Outlet } from "react-router-dom";
 
+import { useAuth } from "./context/AuthContext";
+
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import ScrollToTop from "./components/common/ScrollToTop";
@@ -25,44 +27,16 @@ import ProtectedRoute from "./components/cms/ProtectedRoute";
 import DashboardLayout from "./components/cms/DashboardLayout";
 
 // CMS authentication pages
-import Register from "./pages/cms/auth/Register";
 import Login from "./pages/cms/auth/Login";
-import VerifyEmail from "./pages/cms/auth/VerifyEmail";
 import ForgotPassword from "./pages/cms/auth/ForgotPassword";
 import ResetPassword from "./pages/cms/auth/ResetPassword";
+import AcceptInvitation from "./pages/cms/auth/AcceptInvitation";
 
 // CMS dashboard pages
 import DashboardHome from "./pages/cms/dashboard/DashboardHome";
 import CmsVacancies from "./pages/cms/vacancies/Vacancies";
 import CmsNews from "./pages/cms/news/News";
-
-// CMS placeholder
-const CmsPlaceholder = ({ title, description }) => (
-  <div className="flex min-h-[60vh] flex-col items-center justify-center rounded-2xl border border-gray-200 bg-white px-6 py-12 text-center">
-    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#e7f3f9] text-[#056699]">
-      <span className="text-2xl font-bold">F</span>
-    </div>
-
-    <h1 className="mt-6 text-2xl font-extrabold text-gray-900">
-      {title}
-    </h1>
-
-    <p className="mt-3 max-w-md text-sm leading-6 text-gray-500">
-      {description}
-    </p>
-
-    <p className="mt-5 rounded-full bg-cyan-50 px-4 py-2 text-xs font-bold text-[#159da8]">
-      Module coming soon
-    </p>
-
-    <Link
-      to="/cms/dashboard"
-      className="mt-6 text-sm font-bold text-[#056699] hover:text-[#1BB7C4]"
-    >
-      Back to Dashboard
-    </Link>
-  </div>
-);
+import UserManagement from "./pages/cms/users/UserManagement";
 
 // Public website layout
 const PublicLayout = () => (
@@ -76,10 +50,28 @@ const PublicLayout = () => (
   </div>
 );
 
+// Administrator-only route guard.
+const AdminRoute = () => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="flex min-h-[50vh] items-center justify-center">
+        <div className="h-9 w-9 animate-spin rounded-full border-4 border-gray-200 border-t-[#056699]" />
+      </div>
+    );
+  }
+
+  if (user?.role !== "admin") {
+    return <Navigate to="/cms/dashboard" replace />;
+  }
+
+  return <Outlet />;
+};
+
 function App() {
   return (
     <Routes>
-
       {/* ==========================================
           PUBLIC WEBSITE ROUTES
       ========================================== */}
@@ -99,12 +91,9 @@ function App() {
         <Route path="latest/vacancies" element={<Vacancies />} />
         <Route path="latest/vacancies/:id" element={<VacancyDetails />} />
 
-
-
         <Route path="latest/news" element={<PublicNews />} />
-<Route path="latest/news/:id" element={<PublicNewsDetails />} />
+        <Route path="latest/news/:id" element={<PublicNewsDetails />} />
 
-        {/* Public fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
 
@@ -115,11 +104,10 @@ function App() {
       <Route path="/cms" element={<AuthLayout />}>
         <Route index element={<Navigate to="login" replace />} />
 
-        <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
-        <Route path="verify-email" element={<VerifyEmail />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="reset-password" element={<ResetPassword />} />
+        <Route path="accept-invitation" element={<AcceptInvitation />} />
       </Route>
 
       {/* ==========================================
@@ -128,19 +116,16 @@ function App() {
 
       <Route element={<ProtectedRoute />}>
         <Route path="/cms" element={<DashboardLayout />}>
+          <Route path="dashboard" element={<DashboardHome />} />
 
-          <Route
-            path="dashboard"
-            element={<DashboardHome />}
-          />
+          <Route path="vacancies" element={<CmsVacancies />} />
 
-          <Route
-  path="vacancies"
-  element={<CmsVacancies />}
-/>
+          <Route path="news" element={<CmsNews />} />
 
-         <Route path="news" element={<CmsNews />} />
-
+          {/* Administrator-only pages */}
+          <Route element={<AdminRoute />}>
+            <Route path="users" element={<UserManagement />} />
+          </Route>
         </Route>
       </Route>
 
@@ -169,7 +154,6 @@ function App() {
           </div>
         }
       />
-
     </Routes>
   );
 }
