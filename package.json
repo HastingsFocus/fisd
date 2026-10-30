@@ -1,5 +1,4 @@
 {
-  "homepage": "https://HastingsFocus.github.io/<fisd>",
   "name": "fisdev-website",
   "private": true,
   "version": "0.0.0",
@@ -14,6 +13,8 @@
 },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
+    "axios": "^1.21.0",
+    "framer-motion": "^14.6.0",
     "lucide-react": "^1.57.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
