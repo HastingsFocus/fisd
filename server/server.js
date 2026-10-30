@@ -9,6 +9,7 @@ import connectDB from "./config/db.js";
 
 import authRoutes from "./routes/authRoutes.js";
 import vacancyRoutes from "./routes/vacancyRoutes.js";
+import newsRoutes from "./routes/newsRoutes.js";
 
 
 import {
@@ -95,6 +96,7 @@ app.get("/api/health", (req, res) => {
 // API routes.
 app.use("/api/auth", authRoutes);
 app.use("/api/vacancies", vacancyRoutes);
+app.use("/api/news", newsRoutes);
 
 // Handle unknown routes and errors.
 app.use(notFound);

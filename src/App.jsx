@@ -16,6 +16,8 @@ import Team from "./components/home/Team";
 import GetInvolved from "./components/home/GetInvolved";
 import Vacancies from "./components/home/Vacancies";
 import VacancyDetails from "./components/home/VacancyDetails";
+import PublicNews from "./components/home/News";
+import PublicNewsDetails from "./components/home/NewsDetails";
 
 // CMS layouts
 import AuthLayout from "./components/cms/AuthLayout";
@@ -31,6 +33,8 @@ import ResetPassword from "./pages/cms/auth/ResetPassword";
 
 // CMS dashboard pages
 import DashboardHome from "./pages/cms/dashboard/DashboardHome";
+import CmsVacancies from "./pages/cms/vacancies/Vacancies";
+import CmsNews from "./pages/cms/news/News";
 
 // CMS placeholder
 const CmsPlaceholder = ({ title, description }) => (
@@ -95,16 +99,10 @@ function App() {
         <Route path="latest/vacancies" element={<Vacancies />} />
         <Route path="latest/vacancies/:id" element={<VacancyDetails />} />
 
-        {/* News placeholder */}
-        <Route
-          path="latest/news"
-          element={
-            <CmsPlaceholder
-              title="Latest News"
-              description="Our latest organisational news and updates will appear here."
-            />
-          }
-        />
+
+
+        <Route path="latest/news" element={<PublicNews />} />
+<Route path="latest/news/:id" element={<PublicNewsDetails />} />
 
         {/* Public fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
@@ -137,22 +135,11 @@ function App() {
           />
 
           <Route
-            path="vacancies"
-            element={<CmsPlaceholder
-              title="Manage Vacancies"
-              description="Create, edit, publish and manage FISDEV vacancies."
-            />}
-          />
+  path="vacancies"
+  element={<CmsVacancies />}
+/>
 
-          <Route
-            path="news"
-            element={
-              <CmsPlaceholder
-                title="Manage News"
-                description="Create, edit, publish and manage organisational news and updates."
-              />
-            }
-          />
+         <Route path="news" element={<CmsNews />} />
 
         </Route>
       </Route>

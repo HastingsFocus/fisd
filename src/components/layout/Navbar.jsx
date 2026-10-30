@@ -21,7 +21,6 @@ const Navbar = () => {
     { name: "Home", to: "/" },
     { name: "About", to: "/about" },
     { name: "Programs", to: "/programs" },
-    { name: "Projects", to: "/projects" },
     { name: "Our Approach", to: "/approach" },
     { name: "Team", to: "/team" },
     { name: "Get Involved", to: "/get-involved" },
@@ -95,7 +94,8 @@ const Navbar = () => {
         {/* Desktop navigation */}
         <div className="hidden items-center gap-3 md:flex lg:gap-4 xl:gap-5">
 
-          {navLinks.slice(0, 6).map((link) => (
+          {/* Links before Latest */}
+          {navLinks.slice(0, 5).map((link) => (
             <Link
               key={link.name}
               to={link.to}
@@ -147,7 +147,7 @@ const Navbar = () => {
             >
               <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-xl">
                 {/* Vertical accent line */}
-                <div className="border-l-2 border-[#1BB7C4] pl-3">
+                <div className="border-l-4 border-[#1BB7C4] pl-3">
                   {latestLinks.map((item) => {
                     const Icon = item.icon;
                     const active = location.pathname.startsWith(item.to);
@@ -190,8 +190,8 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Remaining navigation links */}
-          {navLinks.slice(6).map((link) => (
+          {/* Get Involved and Contact Us */}
+          {navLinks.slice(5).map((link) => (
             <Link
               key={link.name}
               to={link.to}
@@ -221,7 +221,8 @@ const Navbar = () => {
         <div className="border-t border-gray-200 bg-[rgb(245,249,252)] px-4 py-4 shadow-lg sm:px-6 md:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-1">
 
-            {navLinks.slice(0, 6).map((link) => (
+            {/* Links before Latest */}
+            {navLinks.slice(0, 5).map((link) => (
               <Link
                 key={link.name}
                 to={link.to}
@@ -260,7 +261,7 @@ const Navbar = () => {
               </button>
 
               {mobileLatestOpen && (
-                <div className="ml-4 mt-1 flex flex-col gap-1 border-l-2 border-[#1BB7C4]/30 pl-3">
+                <div className="ml-4 mt-1 flex flex-col gap-1 border-l-4 border-[#1BB7C4]/50 pl-3">
                   {latestLinks.map((item) => {
                     const Icon = item.icon;
                     const active = location.pathname.startsWith(item.to);
@@ -285,8 +286,8 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Remaining mobile navigation links */}
-            {navLinks.slice(6).map((link) => (
+            {/* Get Involved and Contact Us */}
+            {navLinks.slice(5).map((link) => (
               <Link
                 key={link.name}
                 to={link.to}
@@ -303,7 +304,6 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-
           </div>
         </div>
       )}
